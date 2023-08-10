@@ -3,6 +3,8 @@ import * as d3 from "d3"
 import { useState, useEffect, useRef } from 'react'
 import useSWR from "swr";
 import Timeline from '@/components/Timeline';
+import ScatterPlot from '@/components/ScatterPlot';
+import Histogram from '@/components/Histogram';
 
 // const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -17,7 +19,7 @@ const dateAccessor = d => parseDate(d.date)
 const temperatureAccessor = d => d.temperature
 const humidityAccessor = d => d.humidity
 
-export default function Index(data) {
+export default function Index({scatterData, temperatureData}) {
   return (
     <>
       <Head>
@@ -26,12 +28,24 @@ export default function Index(data) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <h1>Weather Dashboard</h1>
       <Timeline 
-          data={data.temperatureData}
+          data={temperatureData}
           xAccessor={dateAccessor}
           yAccessor={temperatureAccessor}
           label="Temperature"/>
-      <h1>Hi</h1>
+                <ScatterPlot
+          data={scatterData}
+          xAccessor={humidityAccessor}
+          yAccessor={temperatureAccessor}
+          xLabel="Humidity"
+          yLabel="Temperature"
+        />
+      <Histogram
+          data={scatterData}
+          xAccessor={humidityAccessor}
+          label="Humidity"
+        />
     <main>
     </main>
     </>
@@ -42,12 +56,16 @@ export default function Index(data) {
 // It won't be called on client-side, so you can even do
 // direct database queries.
 export async function getStaticProps() {
-  const res = await fetch('http://localhost:3000/api/timelineData')
-  const data = await res.json()
+  const tempRes = await fetch('http://localhost:3000/api/timelineData')
+  const temperatureData = await tempRes.json()
+
+  const scatterRes = await fetch('http://localhost:3000/api/scatterData')
+  const scatterData = await scatterRes.json()
  
   return {
     props: {
-        temperatureData: data
+        temperatureData,
+        scatterData
     },
   }
 }
