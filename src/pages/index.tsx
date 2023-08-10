@@ -1,11 +1,23 @@
 import Head from 'next/head'
+import * as d3 from "d3"
+import { useState, useEffect, useRef } from 'react'
+import useSWR from "swr";
+import Timeline from '@/components/Timeline';
+
+// const fetcher = (url) => fetch(url).then((res) => res.json());
+
+// const useDummyData = () => {
+//   const { data, isLoading, error } = useSWR(`/api/dummyData`, fetcher);
+
+//   return { user: data, isLoading, error };
+// };
 
 const parseDate = d3.timeParse("%m/%d/%Y")
 const dateAccessor = d => parseDate(d.date)
 const temperatureAccessor = d => d.temperature
 const humidityAccessor = d => d.humidity
 
-export default function Home() {
+export default function Index(data) {
   return (
     <>
       <Head>
@@ -14,8 +26,28 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Timeline 
+          data={data.temperatureData}
+          xAccessor={dateAccessor}
+          yAccessor={temperatureAccessor}
+          label="Temperature"/>
+      <h1>Hi</h1>
     <main>
     </main>
     </>
   )
+}
+
+// This function gets called at build time on server-side.
+// It won't be called on client-side, so you can even do
+// direct database queries.
+export async function getStaticProps() {
+  const res = await fetch('http://localhost:3000/api/timelineData')
+  const data = await res.json()
+ 
+  return {
+    props: {
+        temperatureData: data
+    },
+  }
 }
