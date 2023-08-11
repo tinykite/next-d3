@@ -4,7 +4,8 @@ import * as d3 from "d3"
 
 import Chart from "./Chart/Chart"
 import Circles from "./Chart/Circles"
-import Axis from "./Chart/Axis"
+import XAxis from "./Chart/XAxis"
+import YAxis from "./Chart/YAxis"
 import { useChartDimensions, accessorPropsType } from "../lib/chart"
 
 const ScatterPlot = ({ data, xAccessor, yAccessor, xLabel, yLabel }) => {
@@ -29,13 +30,13 @@ const ScatterPlot = ({ data, xAccessor, yAccessor, xLabel, yLabel }) => {
   return (
     <div className="ScatterPlot" ref={ref}>
       <Chart dimensions={dimensions}>
-        <Axis
+        <XAxis
           dimensions={dimensions}
           dimension="x"
           scale={xScale}
           label={xLabel}
         />
-        <Axis
+        <YAxis
           dimensions={dimensions}
           dimension="y"
           scale={yScale}

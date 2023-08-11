@@ -2,7 +2,8 @@ import * as d3 from "d3"
 import { useChartDimensions } from "@/lib/chart"
 import Chart from '../components/Chart/Chart'
 import Line from "./Chart/Line"
-import Axis from './Chart/Axis'
+import XAxis from './Chart/XAxis'
+import YAxis from './Chart/YAxis'
 
 const formatDate = d3.timeFormat("%-b %-d")
 const gradientColors = ["rgb(226, 222, 243)", "#f8f9fa"]
@@ -33,12 +34,12 @@ const Timeline = ({ data, xAccessor, yAccessor, label }) => {
           yAccessor={yAccessorScaled}
           y0Accessor={y0AccessorScaled}
         />
-        <Axis
+        <XAxis
           dimension="x"
           scale={xScale}
           formatTick={formatDate}
         />
-        <Axis
+        <YAxis
           dimension="y"
           scale={yScale}
           label={label}

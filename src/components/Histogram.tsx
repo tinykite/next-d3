@@ -4,7 +4,8 @@ import * as d3 from "d3"
 
 import Chart from "./Chart/Chart"
 import Bars from "./Chart/Bars"
-import Axis from "./Chart/Axis"
+import XAxis from "./Chart/XAxis"
+import YAxis from "./Chart/YAxis"
 import Gradient from "./Chart/Gradient"
 import { useChartDimensions, accessorPropsType, useUniqueId } from "../lib/chart"
 
@@ -54,13 +55,13 @@ const Histogram = ({ data, xAccessor, label }) => {
             y2="100%"
           />
         </defs>
-        <Axis
+        <XAxis
           dimensions={dimensions}
           dimension="x"
           scale={xScale}
           label={label}
         />
-        <Axis
+        <YAxis
           dimensions={dimensions}
           dimension="y"
           scale={yScale}
