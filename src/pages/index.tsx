@@ -1,25 +1,32 @@
 import Head from 'next/head'
 import * as d3 from "d3"
-import { useState, useEffect, useRef } from 'react'
-import useSWR from "swr";
 import Timeline from '@/components/Timeline';
 import ScatterPlot from '@/components/ScatterPlot';
 import Histogram from '@/components/Histogram';
 
-// const fetcher = (url) => fetch(url).then((res) => res.json());
-
-// const useDummyData = () => {
-//   const { data, isLoading, error } = useSWR(`/api/dummyData`, fetcher);
-
-//   return { user: data, isLoading, error };
-// };
-
 const parseDate = d3.timeParse("%m/%d/%Y")
-const dateAccessor = d => parseDate(d.date)
-const temperatureAccessor = d => d.temperature
-const humidityAccessor = d => d.humidity
+const dateAccessor = (d: temperatureData) => parseDate(d.date)
+// TODO: Write a better type generic
+const temperatureAccessor = (d: ScatterData | temperatureData) => d.temperature
+const humidityAccessor = (d: ScatterData) => d.humidity
 
-export default function Index({scatterData, temperatureData}) {
+interface ScatterData {
+  humidity: number,
+  temperature: number
+} 
+
+interface temperatureData {
+  date: string, 
+  temperature: number
+}
+
+interface IndexPageProps {
+  scatterData: Array<ScatterData>
+  temperatureData: Array<temperatureData>
+}
+
+export default function Index(props: IndexPageProps) {
+  const {scatterData, temperatureData} = props
   return (
     <>
       <Head>
