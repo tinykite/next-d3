@@ -1,12 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import * as d3 from "d3"
-
-const randomAroundMean = (mean, deviation) => mean + boxMullerRandom() * deviation
-const boxMullerRandom = () => (
-  Math.sqrt(-2.0 * Math.log(Math.random())) *
-  Math.cos(2.0 * Math.PI * Math.random())
-)
+import { randomAroundMean } from '@/lib/math'
 
 export default function handler(
   req: NextApiRequest,
@@ -15,8 +9,8 @@ export default function handler(
 
   const getScatterData = (count = 100) => (
     new Array(count).fill(0).map((d, i) => ({
-      temperature: randomAroundMean(70, 20),
-      humidity: randomAroundMean(0.5, 0.1),
+      temperature: randomAroundMean({mean: 70, deviation: 20}),
+      humidity: randomAroundMean({mean: 0.5, deviation: 0.1}),
     }))
   )
 
