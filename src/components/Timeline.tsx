@@ -4,15 +4,27 @@ import Chart from '../components/Chart/Chart'
 import Line from "./Chart/Line"
 import XAxis from './Chart/XAxis'
 import YAxis from './Chart/YAxis'
+import type {temperatureData} from "@/lib/chart"
+import type { NumberValue } from "d3"
 
 const formatDate = d3.timeFormat("%-b %-d")
 const gradientColors = ["rgb(226, 222, 243)", "#f8f9fa"]
 
-const Timeline = ({ data, xAccessor, yAccessor, label }) => {
+interface TimelineProps {
+    data: Array<temperatureData>
+    xAccessor: () => string
+    yAccessor: () => string
+    label?: string
+}
+
+const Timeline = ({ data, xAccessor, yAccessor, label }: TimelineProps) => {
     const [ref, dimensions] = useChartDimensions()
+    const domainRange = d3.extent(data, xAccessor)
+
+    console.log(ref)
 
     const xScale = d3.scaleTime()
-    .domain(d3.extent(data, xAccessor))
+    .domain(domainRange as Iterable<Date | NumberValue>) 
     .range([0, dimensions.boundedWidth])
 
   const yScale = d3.scaleLinear()

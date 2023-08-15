@@ -53,15 +53,15 @@ const ScatterPlot = ({ data, xAccessor, yAccessor, xLabel, yLabel }) => {
   )
 }
 
-ScatterPlot.propTypes = {
-  xAccessor: accessorPropsType,
-  yAccessor: accessorPropsType,
-  xLabel: PropTypes.string,
-  yLabel: PropTypes.string,
-}
+// ScatterPlot.propTypes = {
+//   xAccessor: accessorPropsType,
+//   yAccessor: accessorPropsType,
+//   xLabel: PropTypes.string,
+//   yLabel: PropTypes.string,
+// }
 
-ScatterPlot.defaultProps = {
-  xAccessor: d => d.x,
-  yAccessor: d => d.y,
-}
+// ScatterPlot.defaultProps = {
+//   xAccessor: d => d.x,
+//   yAccessor: d => d.y,
+// }
 export default ScatterPlot

@@ -1,9 +1,15 @@
 import React from "react"
-import PropTypes from "prop-types"
-import { accessorPropsType } from "../../lib/chart"
 
-const Circles = ({ data, keyAccessor, xAccessor, yAccessor, radius }) => (
-  <React.Fragment>
+interface CircleProps {
+    data: Array<>,
+    keyAccessor: () => string,
+    xAccessor: () => string,
+    yAccessor: () => string,
+    radius: ((arg0: number) => number) | number
+}
+
+const Circles = ({ data, keyAccessor, xAccessor, yAccessor, radius = 5 }: CircleProps) => (
+  <>
     {data.map((d, i) => (
       <circle
         className="Circles__circle"
@@ -13,19 +19,7 @@ const Circles = ({ data, keyAccessor, xAccessor, yAccessor, radius }) => (
         r={typeof radius == "function" ? radius(d) : radius}
       />
     ))}
-  </React.Fragment>
+  </>
 )
-
-Circles.propTypes = {
-  data: PropTypes.array,
-  keyAccessor: accessorPropsType,
-  xAccessor: accessorPropsType,
-  yAccessor: accessorPropsType,
-  radius: accessorPropsType,
-}
-
-Circles.defaultProps = {
-  radius: 5,
-}
 
 export default Circles

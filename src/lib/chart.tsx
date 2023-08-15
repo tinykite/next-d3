@@ -1,6 +1,15 @@
 import { useEffect, useState, useRef } from "react"
 import ResizeObserver from "resize-observer-polyfill"
 
+export interface scatterData {
+    humidity: number,
+    temperature: number
+} 
+  
+export interface temperatureData {
+    date: string, 
+    temperature: number
+}
 
 export interface dimensionsProps {
     width: number,
@@ -42,7 +51,7 @@ export const combineChartDimensions = (dimensions: Partial<dimensionsProps>) => 
     }
 }
 
-export const useChartDimensions = (chartSettings: Partial<dimensionsProps>) => {
+export const useChartDimensions = (chartSettings: Partial<dimensionsProps> = {}) => {
   const ref = useRef()
   const dimensions = combineChartDimensions(chartSettings)
 

@@ -3,29 +3,20 @@ import * as d3 from "d3"
 import Timeline from '@/components/Timeline';
 import ScatterPlot from '@/components/ScatterPlot';
 import Histogram from '@/components/Histogram';
+import type { temperatureData, scatterData } from '@/lib/chart';
 
 const parseDate = d3.timeParse("%m/%d/%Y")
 const dateAccessor = (d: temperatureData) => parseDate(d.date)
 // TODO: Write a better type generic
-const temperatureAccessor = (d: ScatterData | temperatureData) => d.temperature
-const humidityAccessor = (d: ScatterData) => d.humidity
+const temperatureAccessor = (d: scatterData | temperatureData) => d.temperature
+const humidityAccessor = (d: scatterData) => d.humidity
 
-interface ScatterData {
-  humidity: number,
-  temperature: number
-} 
-
-interface temperatureData {
-  date: string, 
-  temperature: number
-}
-
-interface IndexPageProps {
-  scatterData: Array<ScatterData>
+interface indexPageProps {
+  scatterData: Array<scatterData>
   temperatureData: Array<temperatureData>
 }
 
-export default function Index(props: IndexPageProps) {
+export default function Index(props: indexPageProps) {
   const {scatterData, temperatureData} = props
   return (
     <>

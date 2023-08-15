@@ -7,7 +7,7 @@ import Bars from "./Chart/Bars"
 import XAxis from "./Chart/XAxis"
 import YAxis from "./Chart/YAxis"
 import Gradient from "./Chart/Gradient"
-import { useChartDimensions, accessorPropsType, useUniqueId } from "../lib/chart"
+import { useChartDimensions, useUniqueId } from "../lib/chart"
 
 const gradientColors = ["#9980FA", "rgb(226, 222, 243)"]
 const Histogram = ({ data, xAccessor, label }) => {
@@ -81,15 +81,4 @@ const Histogram = ({ data, xAccessor, label }) => {
   )
 }
 
-Histogram.propTypes = {
-  xAccessor: accessorPropsType,
-  yAccessor: accessorPropsType,
-  xLabel: PropTypes.string,
-  yLabel: PropTypes.string,
-}
-
-Histogram.defaultProps = {
-  xAccessor: d => d.x,
-  yAccessor: d => d.y,
-}
 export default Histogram
